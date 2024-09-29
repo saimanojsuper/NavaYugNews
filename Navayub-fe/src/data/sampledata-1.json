@@ -1,0 +1,97 @@
+{
+    "metaData": {
+        "totalCount": 20
+    },
+    "articleDataList": [
+        {
+            "description": "Israel’s strike on Hassan Nasrallah was the culmination of several startling moves that suggest the Israeli prime minister feels unconstrained by foreign criticism.",
+            "sectionName": "World",
+            "genre": "News",
+            "articleAuthor": null,
+            "articleUrl": "https://www.nytimes.com/2024/09/29/world/middleeast/netanyahu-israel-mideast.html",
+            "publishedTime": "2024-09-29T10:16:36",
+            "imageUrl": null,
+            "headline": "We explore some of the most passionate fans in literature."
+        },
+        {
+            "description": "Military success rarely brings true peace, but it can preserve societies.",
+            "sectionName": "Opinion",
+            "genre": "Op-Ed",
+            "articleAuthor": null,
+            "articleUrl": "https://www.nytimes.com/2024/09/29/opinion/iran-israel-nasrallah.html",
+            "publishedTime": "2024-09-29T10:00:17",
+            "imageUrl": null,
+            "headline": "We explore some of the most passionate fans in literature."
+        },
+        {
+            "description": "Artificial intelligence poses unique risks, so the people warning us of safety threats deserve unique protections.",
+            "sectionName": "Opinion",
+            "genre": "Op-Ed",
+            "articleAuthor": null,
+            "articleUrl": "https://www.nytimes.com/2024/09/29/opinion/ai-risks-safety-whistleblower.html",
+            "publishedTime": "2024-09-29T10:00:15",
+            "imageUrl": null,
+            "headline": "We explore some of the most passionate fans in literature."
+        },
+        {
+            "description": "The prospect of a second Trump administration has rekindled an important debate from four years ago.",
+            "sectionName": "Opinion",
+            "genre": "Op-Ed",
+            "articleAuthor": null,
+            "articleUrl": "https://www.nytimes.com/2024/09/29/opinion/trump-military.html",
+            "publishedTime": "2024-09-29T10:00:12",
+            "imageUrl": null,
+            "headline": "We explore some of the most passionate fans in literature."
+        },
+        {
+            "description": "She has prosecuted the case against Donald Trump and clarified some policy views, but not her why. That’s what voters want to know.",
+            "sectionName": "Opinion",
+            "genre": "Op-Ed",
+            "articleAuthor": null,
+            "articleUrl": "https://www.nytimes.com/2024/09/29/opinion/kamala-harris-campaign.html",
+            "publishedTime": "2024-09-29T10:00:11",
+            "imageUrl": null,
+            "headline": "We explore some of the most passionate fans in literature."
+        },
+        {
+            "description": "Scroll down for hints and conversation about the puzzle for September 30, 2024.",
+            "sectionName": "Crosswords & Games",
+            "genre": "News",
+            "articleAuthor": null,
+            "articleUrl": "https://www.nytimes.com/2024/09/29/crosswords/wordle-review-1199.html",
+            "publishedTime": "2024-09-29T10:00:02",
+            "imageUrl": null,
+            "headline": "We explore some of the most passionate fans in literature."
+        },
+        {
+            "description": "The United States’ ability to influence events in the Mideast has waned, and other major nations have essentially been onlookers.",
+            "sectionName": "World",
+            "genre": "News",
+            "articleAuthor": null,
+            "articleUrl": "https://www.nytimes.com/2024/09/29/world/middleeast/middle-east-war-peace-nasrallah.html",
+            "publishedTime": "2024-09-29T09:04:37",
+            "imageUrl": null,
+            "headline": "We explore some of the most passionate fans in literature."
+        },
+        {
+            "description": "John D. MacDonald was eerily prescient about the risks of human-driven climate disasters in the region.",
+            "sectionName": "Books",
+            "genre": "Review",
+            "articleAuthor": null,
+            "articleUrl": "https://www.nytimes.com/2024/09/29/books/review/john-macdonald-cedar-key.html",
+            "publishedTime": "2024-09-29T09:03:42",
+            "imageUrl": null,
+            "headline": "We explore some of the most passionate fans in literature."
+        },
+        {
+            "description": "Helene was the strongest storm to ever hit Florida’s Big Bend region. As it tore through the Southeast, it ravaged western North Carolina, decimating towns with floods and mudslides.",
+            "sectionName": "U.S.",
+            "genre": "News",
+            "articleAuthor": null,
+            "articleUrl": "https://www.nytimes.com/2024/09/29/us/helene-destruction-florida-north-carolina.html",
+            "publishedTime": "2024-09-29T09:03:40",
+            "imageUrl": null,
+            "headline": "We explore some of the most passionate fans in literature."
+        }
+    ]
+}

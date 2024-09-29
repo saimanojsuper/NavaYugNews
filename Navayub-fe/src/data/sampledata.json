@@ -1,0 +1,107 @@
+{
+    "metaData": {
+        "totalCount": 20
+    },
+    "articleDataList": [
+        {
+            "description": null,
+            "sectionName": "Football",
+            "genre": "Football",
+            "articleAuthor": null,
+            "articleUrl": "https://content.guardianapis.com/football/live/2024/sep/29/manchester-united-v-tottenham-hotspur-premier-league-live",
+            "publishedTime": "2024-09-29T17:30:12",
+            "imageUrl": null,
+            "headline": "Manchester United 0-3 Tottenham Hotspur: Premier League – live reaction"
+        },
+        {
+            "description": null,
+            "sectionName": "World news",
+            "genre": "World news",
+            "articleAuthor": null,
+            "articleUrl": "https://content.guardianapis.com/world/live/2024/sep/29/austria-election-live-far-right-freedom-party-fpo-ovp-spo-latest",
+            "publishedTime": "2024-09-29T17:29:45",
+            "imageUrl": null,
+            "headline": "Austria election live: far-right Freedom party got most votes, first projections show"
+        },
+        {
+            "description": null,
+            "sectionName": "Football",
+            "genre": "Football",
+            "articleAuthor": null,
+            "articleUrl": "https://content.guardianapis.com/football/live/2024/sep/29/everton-v-manchester-united-leicester-v-arsenal-and-more-wsl-clockwatch-live",
+            "publishedTime": "2024-09-29T17:29:36",
+            "imageUrl": null,
+            "headline": "Aston Villa v Tottenham after Arsenal, United and City win: WSL clockwatch – live"
+        },
+        {
+            "description": null,
+            "sectionName": "US news",
+            "genre": "US news",
+            "articleAuthor": null,
+            "articleUrl": "https://content.guardianapis.com/us-news/2024/sep/29/hurricane-helene-historic-flooding-global-heating-fema",
+            "publishedTime": "2024-09-29T17:29:18",
+            "imageUrl": null,
+            "headline": "Hurricane Helene’s ‘historic flooding’ made worse by global heating, Fema says"
+        },
+        {
+            "description": null,
+            "sectionName": "World news",
+            "genre": "World news",
+            "articleAuthor": null,
+            "articleUrl": "https://content.guardianapis.com/world/live/2024/sep/29/middle-east-crisis-live-israel-bombardment-lebanon-hezbollah-hassan-nasrallah-latest",
+            "publishedTime": "2024-09-29T17:26:59",
+            "imageUrl": null,
+            "headline": "Middle East crisis live: Israeli air force launches strikes on Yemen; 21 killed in east Lebanon"
+        },
+        {
+            "description": null,
+            "sectionName": "US news",
+            "genre": "US news",
+            "articleAuthor": null,
+            "articleUrl": "https://content.guardianapis.com/us-news/live/2024/sep/29/kamala-harris-donald-trump-election-campaign",
+            "publishedTime": "2024-09-29T17:26:06",
+            "imageUrl": null,
+            "headline": "Harris and Trump to speak in swing states as running mates prep ahead of VP debate"
+        },
+        {
+            "description": null,
+            "sectionName": "Sport",
+            "genre": "Sport",
+            "articleAuthor": null,
+            "articleUrl": "https://content.guardianapis.com/sport/live/2024/sep/29/worcestershire-v-lancashire-essex-v-surrey-county-cricket-final-day-live",
+            "publishedTime": "2024-09-29T17:22:47",
+            "imageUrl": null,
+            "headline": "Worcestershire v Lancashire, Essex v Surrey: county cricket final day – live"
+        },
+        {
+            "description": null,
+            "sectionName": "Football",
+            "genre": "Football",
+            "articleAuthor": null,
+            "articleUrl": "https://content.guardianapis.com/football/2024/sep/29/everton-manchester-united-wsl-match-report",
+            "publishedTime": "2024-09-29T17:10:49",
+            "imageUrl": null,
+            "headline": "Grace Clinton scores again in 1-0 Manchester United WSL win at Everton"
+        },
+        {
+            "description": null,
+            "sectionName": "Politics",
+            "genre": "Politics",
+            "articleAuthor": null,
+            "articleUrl": "https://content.guardianapis.com/politics/live/2024/sep/29/labour-rosie-duffield-keir-starmer-tory-conference-birmingham-live-latest",
+            "publishedTime": "2024-09-29T17:09:11",
+            "imageUrl": null,
+            "headline": "Kemi Badenoch’s maternity pay comments show how ‘hopelessly out of touch’ Tories are, TUC says – UK politics live"
+        },
+        {
+            "description": null,
+            "sectionName": "Football",
+            "genre": "Football",
+            "articleAuthor": null,
+            "articleUrl": "https://content.guardianapis.com/football/2024/sep/29/anger-as-chelseas-sold-out-wsl-match-against-manchester-united-is-postponed",
+            "publishedTime": "2024-09-29T17:07:15",
+            "imageUrl": null,
+            "headline": "Anger as Chelsea’s sold-out WSL match against Manchester United is postponed"
+        }
+    ]
+}
