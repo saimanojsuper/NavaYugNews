@@ -1,0 +1,94 @@
+pipeline {
+    agent any
+
+    environment {
+        // Define Docker image name with dynamic versioning using Jenkins build number and Git branch name
+        DOCKER_IMAGE_NAME = "navayug-news-microservice"
+        GIT_COMMIT = sh(script: "git rev-parse --short HEAD", returnStdout: true).trim()
+        IMAGE_VERSION = "${DOCKER_IMAGE_NAME}:${BUILD_NUMBER}-${GIT_COMMIT}" // Use BUILD_NUMBER + Commit Hash for versioning
+    }
+
+    stages {
+        stage('Checkout') {
+            steps {
+                // Checkout the repository
+                checkout scm
+            }
+        }
+
+        stage('Build') {
+            steps {
+                // Build the application
+                sh './gradlew build'
+            }
+        }
+
+        stage('Build Docker Image') {
+            steps {
+                // Build Docker image with versioning (e.g., myapp:123-abcd123)
+                sh """
+                docker build -t ${IMAGE_VERSION} .
+                """
+            }
+        }
+
+        stage('Push Docker Image') {
+            steps {
+                script {
+                    docker.withRegistry('https://registry.hub.docker.com', 'dockerhub-credentials') {
+                        sh """
+                        docker tag ${IMAGE_VERSION} mydockerhubaccount/${IMAGE_VERSION}
+                        docker push mydockerhubaccount/${IMAGE_VERSION}
+                        """
+                    }
+                }
+            }
+        }
+
+        stage('Deploy') {
+            steps {
+                // Deploy the Docker image (this can be to Kubernetes, Docker Swarm, or any other environment)
+                echo "Deploying ${IMAGE_VERSION}"
+                // Add deployment scripts here
+            }
+        }
+    }
+
+    post {
+        success {
+            echo "Docker image ${IMAGE_VERSION} built and pushed successfully."
+        }
+        failure {
+            echo "Build failed! Docker image ${IMAGE_VERSION} was not pushed."
+        }
+    }
+}
+
+
+// scripts to run in local
+//pipeline {
+//     agent any
+//     stages {
+//         stage('Build') {
+//             steps {
+//                 sh './gradlew build'
+//             }
+//         }
+//         stage('Docker Build') {
+//             steps {
+//                 sh 'docker build -t navayug-news-microservice:latest .'
+//             }
+//         }
+//         stage('Docker Push to some registry') {
+//             steps {
+//                 sh 'docker push navayug-news-microservice:latest'
+//             }
+//         }
+//         stage('Docker Run') {
+//             steps {
+//                 sh 'docker run -dp 127.0.0.1:8080:8080 navayug-news-microservice:latest'
+//             }
+//         }
+//     }
+// }
+
