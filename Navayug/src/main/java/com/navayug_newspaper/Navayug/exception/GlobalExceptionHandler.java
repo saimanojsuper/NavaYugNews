@@ -17,8 +17,18 @@ public class GlobalExceptionHandler {
   @ExceptionHandler({Exception.class})
   public ResponseEntity<Object> handleException(Exception ex) {
     log.error("Exception message", ex.getMessage());
-    Map<String, Object> body = new HashMap<>();
+    Map<String,Object> body = new HashMap<>();
     body.put("message", "Internal Server Error");
-    return ResponseEntity.status(HttpStatus.SERVICE_UNAVAILABLE).contentType(MediaType.APPLICATION_JSON).body(body);
+    return ResponseEntity.status(HttpStatus.SERVICE_UNAVAILABLE)
+        .contentType(MediaType.APPLICATION_JSON)
+        .body(body);
+  }
+
+  @ExceptionHandler({InvalidAPIKeyException.class})
+  public ResponseEntity<Object> handleInvalidAPIKey(Exception ex) {
+    log.error("Exception message", ex.getMessage());
+    Map<String,Object> body = new HashMap<>();
+    body.put("message", "Invalid authentication credentials");
+    return ResponseEntity.status(HttpStatus.UNAUTHORIZED).contentType(MediaType.APPLICATION_JSON).body(body);
   }
 }

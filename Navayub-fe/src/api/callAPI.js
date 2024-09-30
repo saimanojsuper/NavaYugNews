@@ -2,17 +2,25 @@
 const callAPI = async({pageNumber, pageSize, setArticlesData})=> {
 
     const url = 'api/currentNews'
+    const jsonBody = JSON.stringify({
+        pageNumber: pageNumber,
+        pageSize: pageSize,
+        fromDate: getCurrentDate(),
+        toDate: getCurrentDate(),
+        guardianAPIKey: process.env.REACT_APP_GUARDIAN_API_KEY,
+        nyTimesAPIKey: process.env.REACT_APP_NEWYORKTIMES_API_KEY
+
+    });
+
+    console.log('env var', process.env)
+
+    console.log('jsonbody', jsonBody);
 
     const response = await fetch(url,
         {
             method: "POST",
             mode: "cors",
-            body: JSON.stringify({
-                pageNumber: pageNumber,
-                pageSize: pageSize,
-                fromDate: getCurrentDate(),
-                toDate: getCurrentDate()
-            }),
+            body: jsonBody,
             headers: {
                 'Content-type': 'application/json; charset=UTF-8',
                 'Access-Control-Allow-Origin' : '*'

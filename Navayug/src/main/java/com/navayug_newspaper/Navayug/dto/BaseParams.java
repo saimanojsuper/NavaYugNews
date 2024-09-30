@@ -9,5 +9,7 @@ public class BaseParams {
   private Integer pageSize;
   private String fromDate;
   private String toDate;
+  private String guardianAPIKey;
+  private String nyTimesAPIKey;
 
 }

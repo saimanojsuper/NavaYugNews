@@ -21,7 +21,14 @@ public class NewsAggregationService {
   // Need to handle the total count correctly
   public NewsSummaryData getAggregatedNews(BaseParams baseParams) {
     try {
-      NewsSummaryData guardianResponse = guardianNewsServiceImpl.getcurrentNews(baseParams);
+      NewsSummaryData guardianResponse = null;
+      Boolean isToIncludeNyTimesResponse = false;
+      try {
+        guardianResponse = guardianNewsServiceImpl.getcurrentNews(baseParams);
+      } catch (Exception e) {
+        isToIncludeNyTimesResponse = true;
+      }
+
       NewsSummaryData nytimesResponse = newYorkTimesNewsService.getcurrentNews(baseParams);
 
       NewsSummaryData newsSummaryData = new NewsSummaryData();
