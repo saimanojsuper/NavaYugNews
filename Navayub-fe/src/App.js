@@ -11,7 +11,8 @@ const App = () => {
   var data2 = require('./data/sampledata-1.json');
   console.log('data-json',data.articleDataList);
 
-  const [searchQuery, setSearchQuery] = useState("");
+  const [searchQuery, setSearchQuery] = useState(null);
+  const [searchClick, setSearchClick] = useState(null);
   const [currentPage, setCurrentPage] = useState(1);
   const [articlesPerPage] = useState(10);
 
@@ -21,7 +22,6 @@ const App = () => {
     },
     "articleDataList": []
   });
-  let totalCount = 10;
 
   // Search functionality
   // const filteredArticles = articles.filter((article) =>
@@ -42,7 +42,8 @@ const App = () => {
       callAPI({
         pageNumber: currentPage,
         pageSize: articlesPerPage,
-        setArticlesData: setArticlesData
+        setArticlesData: setArticlesData,
+        searchTerm: searchQuery
       })
 
       // console.log('current page', currentPage, 'articles', articlesData)
@@ -50,13 +51,17 @@ const App = () => {
       // setArticles(data2.articleDataList)
       // }
     },
-    [currentPage]
+    [currentPage, searchClick]
   )
 
   return (
     <div className="App">
-      <h1>Newspaper Web App</h1>
-      <Search searchQuery={searchQuery} setSearchQuery={setSearchQuery} />
+       <div className="center-container">
+       <div className="center-content">
+      <h1>NavaYug News Paper App</h1>
+      <Search searchQuery={searchQuery} setSearchClick={setSearchClick} setSearchQuery={setSearchQuery} />
+      </div>
+      </div>
       <ArticleList articles={articlesData.articleDataList} />
       <Pagination
         totalArticles={articlesData.metaData.totalCount}

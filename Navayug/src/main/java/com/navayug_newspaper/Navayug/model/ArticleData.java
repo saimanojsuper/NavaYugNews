@@ -10,7 +10,9 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class ArticleData {
+  private String id;
   private String Headline;
+  //Not present for guardian directly but we can figureout using the articleUrl in
   private String description;
   private String sectionName;
   private String genre;

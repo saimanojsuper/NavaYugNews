@@ -1,8 +1,9 @@
 
-const callAPI = async({pageNumber, pageSize, setArticlesData})=> {
+const callAPI = async({pageNumber, pageSize, setArticlesData, searchTerm})=> {
 
-    const url = 'api/currentNews'
+    const url = 'api/currentNewsBySearch'
     const jsonBody = JSON.stringify({
+        searchTerm: searchTerm,
         pageNumber: pageNumber,
         pageSize: pageSize,
         fromDate: getCurrentDate(),
@@ -43,9 +44,10 @@ const getCurrentDate = () => {
     const date = new Date();
     const year = date.getFullYear();
     const month = String(date.getMonth() + 1).padStart(2, '0'); // Months are 0-based
-    const day = String(date.getDate()).padStart(2, '0') - 1;
+    const day = String(date.getDate()).padStart(2, '0');
     
-    return `${year}-${month}-${day}`;
+    // return `${year}-${month}-${day}`;
+    return '2024-09-29';
 };
 
 export default callAPI;

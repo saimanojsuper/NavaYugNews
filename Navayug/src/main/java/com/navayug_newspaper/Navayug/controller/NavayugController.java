@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.navayug_newspaper.Navayug.dto.BaseParams;
+import com.navayug_newspaper.Navayug.dto.SearchArticleParams;
 import com.navayug_newspaper.Navayug.model.NewsSummaryData;
 import com.navayug_newspaper.Navayug.service.NewsAggregationService;
 
@@ -22,6 +23,11 @@ public class NavayugController {
   @PostMapping(value = "currentNews", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
   public NewsSummaryData getCurrentNews(@RequestBody BaseParams filterParams) {
     return newsAggregationService.getAggregatedNews(filterParams);
+  }
+
+  @PostMapping(value = "currentNewsBySearch", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+  public NewsSummaryData getCurrentNewsBySearch(@RequestBody SearchArticleParams searchArticleParams) {
+    return newsAggregationService.getAggregatedNewsData(searchArticleParams);
   }
 
 }

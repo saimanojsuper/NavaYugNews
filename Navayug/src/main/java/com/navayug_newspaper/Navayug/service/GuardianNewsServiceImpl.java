@@ -20,22 +20,30 @@ public class GuardianNewsServiceImpl implements NewsService {
 
   @Override
   public NewsSummaryData getcurrentNews(BaseParams baseParams) {
-
-    if (!HashUtil.hashApiKey(baseParams.getGuardianAPIKey()).equals(hashedApiKey)) {
-      throw new InvalidAPIKeyException("Error the api key given for guardian is Invalid");
-    }
-
-    String url = String.format("%s?page=%d&page-number-%d&from-date=%s&to-date=%s&api-key=%s", API_URL,
-        baseParams.getPageNumber(), baseParams.getPageSize(), baseParams.getFromDate(),
-        baseParams.getToDate(), baseParams.getGuardianAPIKey());
-    RestTemplate restTemplate = new RestTemplate();
-    ResponseEntity<ResponseGuardianDTO> response = restTemplate.getForEntity(url, ResponseGuardianDTO.class);
-    return response.getBody().convertToNewsSummaryData();
+    return getNews(baseParams, null);
   }
 
   @Override
   public NewsSummaryData getNewsBySearchTerm(SearchArticleParams searchArticleParams) {
-    //    String url = String.format("%s?q=%s&page=%d&api-key=%s", API_URL, query, page, apiKey);
-    return null;
+    return getNews((BaseParams)searchArticleParams, searchArticleParams.getSearchTerm());
+  }
+
+  @Override
+  public NewsSummaryData getNews(BaseParams baseParams, String searchTerm) {
+    if (!HashUtil.hashApiKey(baseParams.getGuardianAPIKey()).equals(hashedApiKey)) {
+      throw new InvalidAPIKeyException("Error the api key given for guardian is Invalid");
+    }
+
+    String url = searchTerm != null ?
+        String.format("%s?q=%s&page=%d&page-size=%d&from-date=%s&to-date=%s&api-key=%s", API_URL,
+            searchTerm, baseParams.getPageNumber(), baseParams.getPageSize(), baseParams.getFromDate(),
+            baseParams.getToDate(), baseParams.getGuardianAPIKey()) :
+        String.format("%s?page=%d&page-size=%d&from-date=%s&to-date=%s&api-key=%s", API_URL,
+            baseParams.getPageNumber(), baseParams.getPageSize(), baseParams.getFromDate(),
+            baseParams.getToDate(), baseParams.getGuardianAPIKey());
+
+    RestTemplate restTemplate = new RestTemplate();
+    ResponseEntity<ResponseGuardianDTO> response = restTemplate.getForEntity(url, ResponseGuardianDTO.class);
+    return response.getBody().convertToNewsSummaryData();
   }
 }

@@ -22,8 +22,9 @@ public class ResponseGuardianDTO {
 
   @Data
   public static class ResultDTO {
+    private String id;
     private String webTitle;
-    private String apiUrl;
+    private String webUrl;
     private String pillarName;
     private String sectionName;
     private String webPublicationDate;
@@ -38,9 +39,10 @@ public class ResponseGuardianDTO {
     List<ArticleData> articleDataList =
         response.results != null ? response.results.stream().map(resultDTO -> {
           ArticleData articleData = new ArticleData();
+          articleData.setId(resultDTO.getId());
           articleData.setHeadline(resultDTO.getWebTitle());
-          articleData.setArticleUrl(resultDTO.getApiUrl());
-          articleData.setGenre(resultDTO.getSectionName());
+          articleData.setArticleUrl(resultDTO.getWebUrl());
+          articleData.setGenre(resultDTO.getPillarName());
           articleData.setPublishedTime(ZonedDateTime.parse(resultDTO.getWebPublicationDate()).toLocalDateTime());
           articleData.setSectionName(resultDTO.getSectionName());
           return articleData;

@@ -1,5 +1,6 @@
 package com.navayug_newspaper.Navayug.exception;
 
+import java.security.InvalidParameterException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -30,5 +31,13 @@ public class GlobalExceptionHandler {
     Map<String,Object> body = new HashMap<>();
     body.put("message", "Invalid authentication credentials");
     return ResponseEntity.status(HttpStatus.UNAUTHORIZED).contentType(MediaType.APPLICATION_JSON).body(body);
+  }
+
+  @ExceptionHandler(InvalidParameterException.class)
+  public ResponseEntity<Object> handleInvalidRequestExceptionException(Exception ex) {
+    log.error("Invalid request parameter value", ex);
+    Map<String,Object> body = new HashMap<>();
+    body.put("message", ex.getMessage());
+    return ResponseEntity.status(HttpStatus.BAD_REQUEST).contentType(MediaType.APPLICATION_JSON).body(body);
   }
 }

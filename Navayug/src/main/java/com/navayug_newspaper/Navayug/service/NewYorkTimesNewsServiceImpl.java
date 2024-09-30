@@ -21,22 +21,30 @@ public class NewYorkTimesNewsServiceImpl implements NewsService {
 
   @Override
   public NewsSummaryData getcurrentNews(BaseParams baseParams) {
-
-    if (!HashUtil.hashApiKey(baseParams.getNyTimesAPIKey()).equals(hashedApiKey)) {
-      throw new InvalidAPIKeyException("Error the api key given for new your times is Invalid");
-    }
-
-    String url = String.format("%s?page=%d&begin_date=%s&end_date=%s&sort=newest&api-key=%s", API_URL,
-        baseParams.getPageNumber(), baseParams.getFromDate(), baseParams.getToDate(),
-        baseParams.getNyTimesAPIKey());
-    RestTemplate restTemplate = new RestTemplate();
-    ResponseEntity<ResponseNewYorkTimesDTO> response = restTemplate.getForEntity(url,
-        ResponseNewYorkTimesDTO.class);
-    return response.getBody().convertToNewsSummaryData();
+    return getNews(baseParams, null);
   }
 
   @Override
   public NewsSummaryData getNewsBySearchTerm(SearchArticleParams searchArticleParams) {
-    return null;
+    return getNews((BaseParams)searchArticleParams, searchArticleParams.getSearchTerm());
+  }
+
+  @Override
+  public NewsSummaryData getNews(BaseParams baseParams, String searchTerm) {
+    if (!HashUtil.hashApiKey(baseParams.getNyTimesAPIKey()).equals(hashedApiKey)) {
+      throw new InvalidAPIKeyException("Error the api key given for new your times is Invalid");
+    }
+
+    String url = searchTerm != null ?
+        String.format("%s?q=%s&page=%d&begin_date=%s&end_date=%s&sort=newest&api-key=%s", API_URL, searchTerm,
+            baseParams.getPageNumber(), baseParams.getFromDate(), baseParams.getToDate(),
+            baseParams.getNyTimesAPIKey()) :
+        String.format("%s?page=%d&begin_date=%s&end_date=%s&sort=newest&api-key=%s", API_URL,
+            baseParams.getPageNumber(), baseParams.getFromDate(), baseParams.getToDate(),
+            baseParams.getNyTimesAPIKey());
+    RestTemplate restTemplate = new RestTemplate();
+    ResponseEntity<ResponseNewYorkTimesDTO> response = restTemplate.getForEntity(url,
+        ResponseNewYorkTimesDTO.class);
+    return response.getBody().convertToNewsSummaryData();
   }
 }

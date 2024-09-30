@@ -35,3 +35,19 @@ a:hover {
   text-decoration:none; 
   cursor:pointer;  
 }
+
+/* CenteredDiv.css */
+
+.center-container {
+  justify-content: center; /* Horizontally centers the content */
+  align-items: center;     /* Vertically centers the content */        /* Full height of the viewport */
+  background-color: #f0f0f0; /* Optional: for visibility */
+}
+
+.center-content {
+  text-align: center;      /* Centers text inside the div */
+  background-color: #fff;  /* Optional: white background */
+  padding: 40px;           /* Padding inside the content */
+  border-radius: 8px;      /* Optional: rounded corners */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Optional: slight shadow */
+}

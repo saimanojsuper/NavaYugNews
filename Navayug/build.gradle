@@ -25,7 +25,8 @@ repositories {
 
 dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-actuator'
-	implementation 'org.springframework.boot:spring-boot-starter-hateoas'
+//	Not required as we are not generating any links through this server we can use this for pagination
+//	implementation 'org.springframework.boot:spring-boot-starter-hateoas'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 //	implementation 'io.springfox:springfox-boot-starter:3.0.0'
 //	implementation 'io.springfox:springfox-swagger-ui:3.0.0'

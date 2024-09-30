@@ -32,6 +32,8 @@ public class ResponseNewYorkTimesDTO {
   @Data
   public static class Docs {
 
+    private String _id;
+
     private String snippet;
     private String web_url;
 
@@ -48,7 +50,7 @@ public class ResponseNewYorkTimesDTO {
 
   @Data
   public static class HeadLine {
-    private String print_headline;
+    private String main;
   }
 
   @Data
@@ -67,7 +69,8 @@ public class ResponseNewYorkTimesDTO {
     List<ArticleData> articleDataList =
         response.getDocs() != null ? response.getDocs().stream().map(docsDto -> {
           ArticleData articleData = new ArticleData();
-          articleData.setHeadline(docsDto.getHeadline().getPrint_headline());
+          articleData.setId(docsDto.get_id());
+          articleData.setHeadline(docsDto.getHeadline().getMain());
           articleData.setArticleUrl(docsDto.getWeb_url());
           articleData.setGenre(docsDto.getType_of_material());
 

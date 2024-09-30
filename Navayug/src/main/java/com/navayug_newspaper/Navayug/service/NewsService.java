@@ -7,5 +7,6 @@ import com.navayug_newspaper.Navayug.model.NewsSummaryData;
 public interface NewsService {
   NewsSummaryData getcurrentNews(BaseParams baseParams);
   NewsSummaryData getNewsBySearchTerm(SearchArticleParams searchArticleParams);
+  NewsSummaryData getNews(BaseParams searchArticleParams, String searchTerm);
 
 }
