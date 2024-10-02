@@ -5,6 +5,7 @@ import java.util.LinkedList;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.HttpClientErrorException;
 
@@ -25,39 +26,40 @@ public class NewsAggregationService {
 
   @Autowired private NewYorkTimesNewsServiceImpl newYorkTimesNewsService;
 
-  public NewsSummaryData getAggregatedNewsData(SearchArticleParams baseParams) {
+  @Cacheable(value = "newsCache", key = "#searchArticleParams.toString()")
+  public NewsSummaryData getAggregatedNewsData(SearchArticleParams searchArticleParams) {
 
-    TotalNewsCount totalResults = findTotal(baseParams);
-    Integer resultsOffset = baseParams.getPageSize() * (baseParams.getPageNumber() - 1);
+    TotalNewsCount totalResults = findTotal(searchArticleParams);
+    Integer resultsOffset = searchArticleParams.getPageSize() * (searchArticleParams.getPageNumber() - 1);
 
-    if (baseParams.getPageNumber() > 1 && resultsOffset > totalResults.totalCount()) {
-      log.error("Invalid PageNumber = {} & PageSize = {}", baseParams.getPageNumber(),
-          baseParams.getPageSize());
+    if (searchArticleParams.getPageNumber() > 1 && resultsOffset > totalResults.totalCount()) {
+      log.error("Invalid PageNumber = {} & PageSize = {}", searchArticleParams.getPageNumber(),
+          searchArticleParams.getPageSize());
       throw new InvalidParameterException(" invalid pageNumber ");
     }
 
     Boolean isGuardianSufficient = totalResults.getGuardianTotal() > resultsOffset &&
-        totalResults.getGuardianTotal() >= resultsOffset + baseParams.getPageSize();
+        totalResults.getGuardianTotal() >= resultsOffset + searchArticleParams.getPageSize();
 
     Boolean isBothAPIsNeeded = !isGuardianSufficient && totalResults.getGuardianTotal() > resultsOffset;
 
     if (isGuardianSufficient) {
       log.info(" only guardian api data is sufficient ");
-      NewsSummaryData newsSummaryData = guardianNewsService.getNews((BaseParams)baseParams,
-          baseParams.getSearchTerm());
+      NewsSummaryData newsSummaryData = guardianNewsService.getNews((BaseParams)searchArticleParams,
+          searchArticleParams.getSearchTerm());
       newsSummaryData.setMetaData(new MetaData(totalResults.totalCount()));
       return newsSummaryData;
     } else if (isBothAPIsNeeded) {
 
-      NewsSummaryData newsSummaryDataGuardian = guardianNewsService.getNews((BaseParams)baseParams,
-          baseParams.getSearchTerm());
+      NewsSummaryData newsSummaryDataGuardian = guardianNewsService.getNews((BaseParams)searchArticleParams,
+          searchArticleParams.getSearchTerm());
 
-      Integer remainingCount = resultsOffset + baseParams.getPageSize() - totalResults.getGuardianTotal();
+      Integer remainingCount = resultsOffset + searchArticleParams.getPageSize() - totalResults.getGuardianTotal();
       NewsSummaryData newsSummaryDataNyTimes = new NewsSummaryData();
       newsSummaryDataNyTimes.setArticleDataList(new LinkedList<>());
 
       Integer startPageNumber = 0;
-      getTheDataFromNewYorkTimes(baseParams, remainingCount, newsSummaryDataNyTimes, startPageNumber, 0);
+      getTheDataFromNewYorkTimes(searchArticleParams, remainingCount, newsSummaryDataNyTimes, startPageNumber, 0);
 
       newsSummaryDataGuardian.getArticleDataList().addAll(newsSummaryDataNyTimes.getArticleDataList());
       newsSummaryDataGuardian.setMetaData(new MetaData(totalResults.totalCount()));
@@ -70,11 +72,11 @@ public class NewsAggregationService {
       Integer startPageNumber = (resultsOffset - totalResults.getGuardianTotal()) / 10;
       Integer removeDuplicates = resultsOffset - totalResults.getGuardianTotal();
 
-      Integer remainingCount = (resultsOffset + baseParams.getPageSize() > totalResults.totalCount()) ?
+      Integer remainingCount = (resultsOffset + searchArticleParams.getPageSize() > totalResults.totalCount()) ?
           totalResults.totalCount() - resultsOffset :
-          baseParams.getPageSize();
+          searchArticleParams.getPageSize();
 
-      getTheDataFromNewYorkTimes(baseParams, remainingCount, newsSummaryDataNyTimes, startPageNumber,
+      getTheDataFromNewYorkTimes(searchArticleParams, remainingCount, newsSummaryDataNyTimes, startPageNumber,
           removeDuplicates);
       newsSummaryDataNyTimes.setMetaData(new MetaData(totalResults.totalCount()));
       return newsSummaryDataNyTimes;

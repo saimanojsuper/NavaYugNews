@@ -13,9 +13,12 @@ import com.navayug_newspaper.Navayug.dto.SearchArticleParams;
 import com.navayug_newspaper.Navayug.model.NewsSummaryData;
 import com.navayug_newspaper.Navayug.service.NewsAggregationService;
 
+import lombok.extern.slf4j.Slf4j;
+
 @RestController
 @Validated
 @RequestMapping("/api/")
+@Slf4j
 public class NavayugController {
 
   @Autowired NewsAggregationService newsAggregationService;
@@ -27,6 +30,7 @@ public class NavayugController {
 
   @PostMapping(value = "currentNewsBySearch", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
   public NewsSummaryData getCurrentNewsBySearch(@RequestBody SearchArticleParams searchArticleParams) {
+    log.info("came inside the currentNewsBySearch Controller check hashcode {}", searchArticleParams.hashCode());
     return newsAggregationService.getAggregatedNewsData(searchArticleParams);
   }
 
