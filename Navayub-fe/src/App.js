@@ -4,6 +4,7 @@ import ArticleList from "./components/ArticleList";
 import Search from "./components/Search";
 import Pagination from "./components/Pagination";
 import callAPI from "./api/callAPI"
+import Loading from "./components/Loading";
 
 const App = () => {
 
@@ -15,6 +16,7 @@ const App = () => {
   const [searchClick, setSearchClick] = useState(null);
   const [currentPage, setCurrentPage] = useState(1);
   const [articlesPerPage] = useState(10);
+  const [isLoading, setLoading] = useState(true);
 
   const [articlesData, setArticlesData] = useState({
     "metaData": {
@@ -39,11 +41,13 @@ const App = () => {
   useEffect(
     ()=> {
 
+      setLoading(true);
       callAPI({
         pageNumber: currentPage,
         pageSize: articlesPerPage,
         setArticlesData: setArticlesData,
-        searchTerm: searchQuery
+        searchTerm: searchQuery,
+        setLoading: setLoading
       })
 
       // console.log('current page', currentPage, 'articles', articlesData)
@@ -56,19 +60,28 @@ const App = () => {
 
   return (
     <div className="App">
-       <div className="center-container">
-       <div className="center-content">
-      <h1>NavaYug News Paper App</h1>
-      <Search searchQuery={searchQuery} setSearchClick={setSearchClick} setSearchQuery={setSearchQuery} />
-      </div>
-      </div>
-      <ArticleList articles={articlesData.articleDataList} />
+      <div className="center-container">
+            <div className="center-content">
+            <h1>NavaYug News Paper App</h1>
+            <Search searchQuery={searchQuery} setSearchClick={setSearchClick} setSearchQuery={setSearchQuery} setCurrentPage={setCurrentPage} />
+            </div>
+            </div>
+      {
+        isLoading ? 
+        (
+          <Loading />
+        )
+        :(
+            <ArticleList articles={articlesData.articleDataList} />
+        )
+      }
       <Pagination
-        totalArticles={articlesData.metaData.totalCount}
-        articlesPerPage={articlesPerPage}
-        currentPage={currentPage}
-        setCurrentPage={setCurrentPage}
-      />
+              totalArticles={articlesData && articlesData.metaData ? articlesData.metaData.totalCount : 0}
+              articlesPerPage={articlesPerPage}
+              currentPage={currentPage}
+              setCurrentPage={setCurrentPage}
+            />
+  
     </div>
   );
 };

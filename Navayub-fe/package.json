@@ -3,10 +3,10 @@
   "version": "1.0.0",
   "description": "",
   "keywords": [],
-  "proxy": "http://localhost:8080/",
   "main": "src/index.tsx",
   "dependencies": {
     "dotenv": "^16.4.5",
+    "http-proxy-middleware": "^3.0.2",
     "react": "^18.0.0",
     "react-dom": "^18.0.0",
     "react-scripts": "^5.0.0"

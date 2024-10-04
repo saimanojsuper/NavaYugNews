@@ -1,6 +1,6 @@
 import React from "react";
 
-const Search = ({ searchQuery, setSearchQuery, setSearchClick }) => {
+const Search = ({ searchQuery, setSearchQuery, setSearchClick, setCurrentPage }) => {
   return (
     <div>
       <input
@@ -11,7 +11,10 @@ const Search = ({ searchQuery, setSearchQuery, setSearchClick }) => {
         style={{ marginLeft: '10px', padding: '10px 20px', fontSize: '16px', cursor: 'pointer' }}
       />
        <button
-        onClick={()=>{setSearchClick(searchQuery)}}
+        onClick={()=>{
+          setSearchClick(searchQuery)
+          setCurrentPage(1)
+        }}
         style={{ marginLeft: '10px', padding: '10px 20px', fontSize: '16px', cursor: 'pointer' }}
       >
         Search

@@ -1,5 +1,5 @@
 
-const callAPI = async({pageNumber, pageSize, setArticlesData, searchTerm})=> {
+const callAPI = async({pageNumber, pageSize, setArticlesData, searchTerm, setLoading})=> {
 
     const url = 'api/currentNewsBySearch'
     const jsonBody = JSON.stringify({
@@ -32,6 +32,7 @@ const callAPI = async({pageNumber, pageSize, setArticlesData, searchTerm})=> {
     const data = await response.json();
 
     setArticlesData(data);
+    await setLoading(false);
 
 
     console.log(' response', data);
