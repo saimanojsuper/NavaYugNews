@@ -1,0 +1,55 @@
+spring:
+  application:
+   name: Navayug
+
+
+server:
+  port: 8080
+
+devtools:
+    restart:
+      enabled: true
+
+# Need to hide the api keys information get this from some secret manager
+guardian:
+  hashedApiKey: smuyywy6RsqtwZnNG/5xJiGtq23xl6/dCPJQBctNkyI=
+  apiUrl: https://content.guardianapis.com/search
+
+nytimes:
+  hashedApiKey: Fx7Hd2dcfQqD35kmU2p07XFNddokOcnjkncMt0J0q9g=
+  apiUrl: https://api.nytimes.com/svc/search/v2/articlesearch.json
+
+
+management:
+  endpoint:
+    health:
+      show-details: always
+  endpoints:
+    web:
+      exposure:
+        include: health
+  health:
+    circuitbreakers:
+      enabled: true
+
+resilience4j:
+  circuitbreaker:
+    instances:
+      new-york-times:
+        sliding-window-type: COUNT_BASED
+        failure-rate-threshold: 50
+        minimum-number-of-calls: 5
+        automatic-transition-from-open-to-half-open-enabled: true
+        wait-duration-in-open-state: 5s
+        permitted-number-of-calls-in-half-open-state: 3
+        sliding-window-size: 10
+        register-health-indicator: true
+      guardian:
+        sliding-window-type: COUNT_BASED
+        failure-rate-threshold: 50
+        minimum-number-of-calls: 5
+        automatic-transition-from-open-to-half-open-enabled: true
+        wait-duration-in-open-state: 5s
+        permitted-number-of-calls-in-half-open-state: 3
+        sliding-window-size: 10
+        register-health-indicator: true

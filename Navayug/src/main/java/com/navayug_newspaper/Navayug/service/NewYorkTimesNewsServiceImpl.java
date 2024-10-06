@@ -12,12 +12,18 @@ import com.navayug_newspaper.Navayug.exception.InvalidAPIKeyException;
 import com.navayug_newspaper.Navayug.model.NewsSummaryData;
 import com.navayug_newspaper.Navayug.util.HashUtil;
 
+import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
+import lombok.extern.slf4j.Slf4j;
+
 @Service
+@Slf4j
 public class NewYorkTimesNewsServiceImpl implements NewsService {
 
   private static final String API_URL = "https://api.nytimes.com/svc/search/v2/articlesearch.json";
+  private static final String Dummy_URL = "https://api.nytimes.com/svc/searchs/v2/articlesearch.json";
 
   @Value("${nytimes.hashedApiKey}") private String hashedApiKey;
+  private static final String SERVICE_NAME = "new-york-times";
 
   @Override
   public NewsSummaryData getcurrentNews(BaseParams baseParams) {
@@ -30,6 +36,7 @@ public class NewYorkTimesNewsServiceImpl implements NewsService {
   }
 
   @Override
+  @CircuitBreaker(name = SERVICE_NAME, fallbackMethod = "fallbackMethod")
   public NewsSummaryData getNews(BaseParams baseParams, String searchTerm) {
     if (!HashUtil.hashApiKey(baseParams.getNyTimesAPIKey()).equals(hashedApiKey)) {
       throw new InvalidAPIKeyException("Error the api key given for new your times is Invalid");
@@ -46,5 +53,10 @@ public class NewYorkTimesNewsServiceImpl implements NewsService {
     ResponseEntity<ResponseNewYorkTimesDTO> response = restTemplate.getForEntity(url,
         ResponseNewYorkTimesDTO.class);
     return response.getBody().convertToNewsSummaryData();
+  }
+
+  private NewsSummaryData fallbackMethod(Exception e) {
+    log.info("Got exception in the service: {} & the error msg is: {}", SERVICE_NAME, e.getMessage());
+    return new NewsSummaryData();
   }
 }

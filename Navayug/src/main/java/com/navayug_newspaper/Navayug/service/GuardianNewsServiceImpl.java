@@ -12,9 +12,14 @@ import com.navayug_newspaper.Navayug.exception.InvalidAPIKeyException;
 import com.navayug_newspaper.Navayug.model.NewsSummaryData;
 import com.navayug_newspaper.Navayug.util.HashUtil;
 
+import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
+import lombok.extern.slf4j.Slf4j;
+
 @Service
+@Slf4j
 public class GuardianNewsServiceImpl implements NewsService {
   private static final String API_URL = "https://content.guardianapis.com/search";
+  private static final String SERVICE_NAME = "guardian";
 
   @Value("${guardian.hashedApiKey}") private String hashedApiKey;
 
@@ -29,6 +34,7 @@ public class GuardianNewsServiceImpl implements NewsService {
   }
 
   @Override
+  @CircuitBreaker(name = SERVICE_NAME, fallbackMethod = "fallbackMethod")
   public NewsSummaryData getNews(BaseParams baseParams, String searchTerm) {
     if (!HashUtil.hashApiKey(baseParams.getGuardianAPIKey()).equals(hashedApiKey)) {
       throw new InvalidAPIKeyException("Error the api key given for guardian is Invalid");
@@ -45,5 +51,10 @@ public class GuardianNewsServiceImpl implements NewsService {
     RestTemplate restTemplate = new RestTemplate();
     ResponseEntity<ResponseGuardianDTO> response = restTemplate.getForEntity(url, ResponseGuardianDTO.class);
     return response.getBody().convertToNewsSummaryData();
+  }
+
+  private NewsSummaryData fallbackMethod(Exception e) {
+    log.info("Got exception in the service: {} & the error msg is: {}", SERVICE_NAME, e.getMessage());
+    return new NewsSummaryData();
   }
 }
